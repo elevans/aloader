@@ -13,7 +13,15 @@ with aloader.Loader("Loading...", "Done!", style="shuffle"):
 ```
 ## Animation styles
 
+Supported animation styles.
+
+<center>
+
 | Style | Animation |
 | :---: | :---: |
 | rotate | ![](docs/images/rotate.gif) |
-| build | ![](docs/images/build.gif)
+| build | ![](docs/images/build.gif) |
+| destroy | ![](docs/images/destroy.gif) |
+| shuffle | ![](docs/images/shuffle.gif) |
+
+</center>
