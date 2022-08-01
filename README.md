@@ -15,13 +15,13 @@ with aloader.Loader("Loading...", "Done!", style="shuffle"):
 
 Supported animation styles.
 
-<center>
-
 | Style | Animation |
 | :---: | :---: |
-| rotate | ![](docs/images/rotate.gif) |
-| build | ![](docs/images/build.gif) |
-| destroy | ![](docs/images/destroy.gif) |
-| shuffle | ![](docs/images/shuffle.gif) |
-
-</center>
+| `block-rotate` | ![](docs/images/rotate.gif) |
+| `block-build` | ![](docs/images/build.gif) |
+| `block-destroy` | ![](docs/images/destroy.gif) |
+| `block-shuffle` | ![](docs/images/shuffle.gif) |
+| `block-drop` | |
+| `block-lift` | |
+| `stream-down` | |
+| `stream-up` | |
