@@ -6,5 +6,5 @@ setup(
     author="Edward Evans",
     author_email="elevans2@wisc.edu",
     platforms=["any"],
-    description="Provides animations to running functions."
+    description="Provides animations to running functions.",
 )
