@@ -1,13 +1,18 @@
+import time
 from itertools import cycle
 from shutil import get_terminal_size
 from threading import Thread
-from time import sleep
 from typing import List
 
 
 class Loader:
     def __init__(
-        self, start_msg="Loading...", end_suffix="Done!", timeout=0.1, style="rotate"
+        self,
+        start_msg="Loading...",
+        end_suffix="Done!",
+        animation_timeout=0.1,
+        style="rotate",
+        process_time=False,
     ):
         """Loading animation wrapper.
 
@@ -38,14 +43,16 @@ class Loader:
                 Streaming column of dots (bottom to top).
         """
         self.start_msg = start_msg
-        self.end_msg = start_msg + end_suffix
-        self.timeout = timeout
-
+        self.end_suffix = start_msg + end_suffix
+        self.timeout = animation_timeout
+        self.process_time = process_time
         self._thread = Thread(target=self._animate, daemon=True)
         self.steps = self._get_animation(style)
         self.done = False
 
     def start(self):
+        global start_time
+        start_time = time.time()
         self._thread.start()
         return self
 
@@ -132,8 +139,26 @@ class Loader:
         for c in cycle(self.steps):
             if self.done:
                 break
-            print(f"\r{self.start_msg} {c} ", flush=True, end="")
-            sleep(self.timeout)
+            if self.process_time:
+                process_time = self._get_process_time()
+                print(
+                    f"\r{self.start_msg} {c} -- time elapsed: {round(process_time[0])}h {round(process_time[1])}m {process_time[2]}s",
+                    flush=True,
+                    end="",
+                )
+            else:
+                print(f"\r{self.start_msg} {c} ", flush=True, end="")
+            time.sleep(self.timeout)
+
+    def _get_process_time(self):
+        """Get process time.
+
+        :return: A time tuple.
+        """
+        s = round(time.time() - start_time, 1)
+        h, s = s // 3600, s % 3600
+        m, s = s // 60, s % 60
+        return (h, m, s)
 
     def __enter__(self):
         self.start()
@@ -142,7 +167,14 @@ class Loader:
         self.done = True
         cols = get_terminal_size((80, 20)).columns
         print("\r" + " " * cols, end="", flush=True)
-        print(f"\r{self.end_msg}", flush=True)
+        process_time = self._get_process_time()
+        if self.process_time:
+            print(
+                f"\r{self.end_suffix} -- Process completed in {round(process_time[0])}h {round(process_time[1])}m {process_time[2]}s",
+                flush=True,
+            )
+        else:
+            print(f"\r{self.end_suffix}", flush=True)
 
     def __exit__(self, exc_type, exc_value, tb):
         # handle exceptions with those variables ^
