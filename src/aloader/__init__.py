@@ -11,7 +11,7 @@ class Loader:
         start_msg="Loading...",
         end_suffix="Done!",
         animation_timeout=0.1,
-        style="rotate",
+        style="block-rotate",
         process_time=False,
     ):
         """Loading animation wrapper.
