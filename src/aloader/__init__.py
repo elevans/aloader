@@ -142,7 +142,7 @@ class Loader:
             if self.process_time:
                 process_time = self._get_process_time()
                 print(
-                    f"\r{self.start_msg} {c} -- time elapsed: {round(process_time[0])}h {round(process_time[1])}m {process_time[2]}s",
+                    f"\r{self.start_msg} {c} -- time elapsed: {round(process_time[0])}h {round(process_time[1])}m {round(process_time[2], 1)}s",
                     flush=True,
                     end="",
                 )
@@ -170,7 +170,7 @@ class Loader:
         process_time = self._get_process_time()
         if self.process_time:
             print(
-                f"\r{self.end_suffix} -- Process completed in {round(process_time[0])}h {round(process_time[1])}m {process_time[2]}s",
+                f"\r{self.end_suffix} -- Process completed in {round(process_time[0])}h {round(process_time[1])}m {round(process_time[2], 1)}s",
                 flush=True,
             )
         else:
